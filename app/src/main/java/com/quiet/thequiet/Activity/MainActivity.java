@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Toolbar toolBar;
     private TextView toolBarTitle, textUpdate, rankText, dbText, locationName, locationInfo;
     private ImageView star1, star2, star3, star4, star5, rankImage;
+    private ImageButton btn_setlocation;
     private ArrayList<Place> places = new ArrayList<>();
     private ArrayList<Marker> markers = new ArrayList<>();
     private Gson gson = new Gson();
@@ -98,6 +101,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSIONS);
         }
+        btn_setlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setLocation();
+            }
+        });
     }
 
     void init() {
@@ -107,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         rankText = (TextView) findViewById(R.id.main_rank_text);
         dbText = (TextView) findViewById(R.id.main_db_text);
         locationName = (TextView) findViewById(R.id.main_text_locationName);
+        btn_setlocation = (ImageButton) findViewById(R.id.main_btn_mylocation);
 //        locationInfo = (TextView) findViewById(R.id.main_text_locationInfo);
 
         star1 = (ImageView) findViewById(R.id.main_star_1);
