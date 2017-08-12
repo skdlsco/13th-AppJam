@@ -1,9 +1,7 @@
 package com.quiet.thequiet.Activity;
 
 import android.Manifest;
-import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,17 +16,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.quiet.thequiet.APIRequest;
 import com.quiet.thequiet.Fonts;
@@ -36,14 +30,9 @@ import com.quiet.thequiet.GpsInfo;
 import com.quiet.thequiet.Place;
 import com.quiet.thequiet.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -81,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
         retrofit = new Retrofit.Builder()
                 .baseUrl(APIRequest.baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -117,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         dbText = (TextView) findViewById(R.id.main_db_text);
         locationName = (TextView) findViewById(R.id.main_text_locationName);
         btn_setlocation = (ImageButton) findViewById(R.id.main_btn_mylocation);
-//        locationInfo = (TextView) findViewById(R.id.main_text_locationInfo);
 
         star1 = (ImageView) findViewById(R.id.main_star_1);
         star2 = (ImageView) findViewById(R.id.main_star_2);
@@ -128,13 +115,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setTexts() {
-        toolBarTitle.setTypeface(fonts.NanumBarunGothicBold);
         textUpdate.setTypeface(fonts.NanumBarunGothic);
         rankText.setTypeface(fonts.NanumBarunGothicBold);
         dbText.setTypeface(fonts.NanumBarunGothic);
         locationName.setTypeface(fonts.NanumBarunGothicBold);
-//        locationInfo.setTypeface(fonts.NanumBarunGothic);
-        toolBarTitle.setTypeface(fonts.NanumBarunGothic);
+        toolBarTitle.setTypeface(fonts.NanumBarunGothicBold);
     }
 
     @Override

@@ -1,11 +1,8 @@
 package com.quiet.thequiet.Activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -19,10 +16,6 @@ import com.quiet.thequiet.R;
 import com.quiet.thequiet.User;
 import com.quiet.thequiet.databinding.ActivityLoginBinding;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,12 +61,12 @@ public class LoginActivity extends AppCompatActivity {
                 apiRequest.Login(dataBinding.loginEditId.getText().toString(), dataBinding.loginEditPw.getText().toString()).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        Log.e("Asdfasdf",""+response.body().toString());
-                        Log.e("www",""+response.body().getSuccess());
-                        if(response.body().getSuccess()){
+                        Log.e("Asdfasdf", "" + response.body().toString());
+                        Log.e("www", "" + response.body().getSuccess());
+                        if (response.body().getSuccess()) {
                             Intent intent = new Intent(mContext, MainActivity.class);
                             startActivity(intent);
-                        }else{
+                        } else {
                             Toast.makeText(mContext, "로그인 실패", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -83,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
-                
+
             }
         });
     }

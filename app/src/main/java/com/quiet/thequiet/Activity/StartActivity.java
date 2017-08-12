@@ -2,13 +2,10 @@ package com.quiet.thequiet.Activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.quiet.thequiet.Fonts;
 import com.quiet.thequiet.R;
