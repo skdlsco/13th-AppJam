@@ -96,7 +96,7 @@
         android:paddingStart="@dimen/activity_horizontal_margin">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/main_rank_image"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginRight="16dp"
