@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         dataBinding.loginEditId.setTypeface(fonts.NanumBarunGothic);
         dataBinding.loginEditPw.setTypeface(fonts.NanumBarunGothic);
         dataBinding.loginTextPw.setTypeface(fonts.NanumBarunGothic);
-        dataBinding.loginToolBarTitle.setTypeface(fonts.NanumBarunGothic);
+        dataBinding.loginToolBarTitle.setTypeface(fonts.NanumBarunGothicBold);
 
         dataBinding.loginEditId.setHint(Html.fromHtml("<i>아이디 입력</i>"));
         dataBinding.loginEditPw.setHint(Html.fromHtml("<i>비밀번호 입력</i>"));

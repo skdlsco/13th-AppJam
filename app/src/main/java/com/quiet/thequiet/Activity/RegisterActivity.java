@@ -1,6 +1,7 @@
 package com.quiet.thequiet.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -82,6 +83,9 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             if (json.getBoolean("success")) {
                                 Toast.makeText(mContext, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
                             } else {
                                 Toast.makeText(mContext, "회원가입 실패", Toast.LENGTH_SHORT).show();
                             }
@@ -100,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setTexts() {
-        dataBinding.registerToolBarTitle.setTypeface(fonts.NanumBarunGothic);
+        dataBinding.registerToolBarTitle.setTypeface(fonts.NanumBarunGothicBold);
         dataBinding.registerEditId.setTypeface(fonts.NanumBarunGothic);
         dataBinding.registerEditPw.setTypeface(fonts.NanumBarunGothic);
         dataBinding.registerEditRepw.setTypeface(fonts.NanumBarunGothic);

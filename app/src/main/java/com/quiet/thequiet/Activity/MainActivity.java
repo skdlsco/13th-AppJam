@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setTexts() {
+        toolBarTitle.setTypeface(fonts.NanumBarunGothicBold);
         textUpdate.setTypeface(fonts.NanumBarunGothic);
         rankText.setTypeface(fonts.NanumBarunGothicBold);
         dbText.setTypeface(fonts.NanumBarunGothic);
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         places.get(i).getDecibel();
                         int db = places.get(i).getDecibel();
                         dbText.setText(places.get(i).getDecibel() + "db / 최근3시간동안평균");
-                        textUpdate.setText("최근 업데이트 : "+places.get(i).getLastupdate());
+                        textUpdate.setText("최근 업데이트 : " + places.get(i).getLastupdate());
                         locationName.setText(places.get(i).getPlacename());
                         switch (db / 10) {
                             case 0:
@@ -211,8 +212,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
                                 star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
                                 break;
-                            case 8:
-                            case 9:
+                            default:
                                 rankText.setText("매우 나쁨");
                                 rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_verybad));
                                 star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
                                 star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
                                 star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                                break;
                         }
                     }
                 }
