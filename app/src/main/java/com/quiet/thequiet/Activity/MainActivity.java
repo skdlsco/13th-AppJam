@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ArrayList<Marker> markers = new ArrayList<>();
     private Gson gson = new Gson();
 
+    Boolean isRuned = false;
     Retrofit retrofit;
     APIRequest apiRequest;
     Timer timer;
@@ -138,12 +139,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void run() {
                 getPlaces();
             }
-        }, 0, 5000);
+        }, 0, 10000);
     }
 
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
+            Log.e("MarkerClick", "onClicked");
             for (int i = 0; i < markers.size(); i++) {
                 if (markers.get(i).getTag() == marker.getTag()) {
 
@@ -196,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         default:
                             rankText.setText("매우 나쁨");
                             rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_verybad));
-                            star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
                             star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
                             star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
                             star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
@@ -215,28 +217,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 String json;
                 try {
-                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                        @Override
-                        public boolean onMarkerClick(Marker marker) {
-                            return false;
-                        }
-                    });
                     json = response.body().string();
                     Log.e("asdfasdf", json.toString());
                     places = gson.fromJson(json, new TypeToken<List<Place>>() {
                     }.getType());
-                    mMap.setOnMarkerClickListener(onMarkerClickListener);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                markers.clear();
-                for (Place place : places) {
-                    markers.add(mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(place.getLatitude(), place.getLogitude()))
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_main_location))
-                            .title(place.getPlacename())));
-                    int index = markers.size() - 1;
-                    markers.get(index).setTag(place.getPlaceid());
+                if (!isRuned) {
+                    for (Place place : places) {
+                        markers.add(mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(place.getLatitude(), place.getLogitude()))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_main_location))
+                                .title(place.getPlacename())));
+                        int index = markers.size() - 1;
+                        markers.get(index).setTag(place.getPlaceid());
+                    }
+                    isRuned = true;
                 }
             }
 
