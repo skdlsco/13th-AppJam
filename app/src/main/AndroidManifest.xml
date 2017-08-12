@@ -25,7 +25,8 @@
             android:value="AIzaSyDzw0JSc0fbXN_yW2d4Rht1r8nVw2P5Bps" />
 
         <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.RegisterActivity"></activity>
+        <activity android:name=".Activity.RegisterActivity" />
+        <activity android:name=".Activity.MainActivity"></activity>
     </application>
 
 </manifest>

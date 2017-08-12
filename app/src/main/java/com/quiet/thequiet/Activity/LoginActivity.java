@@ -1,10 +1,16 @@
 package com.quiet.thequiet.Activity;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
+import android.view.View;
 
 import com.quiet.thequiet.Fonts;
 import com.quiet.thequiet.R;
@@ -28,6 +34,14 @@ public class LoginActivity extends AppCompatActivity {
         setTexts();
 
         setSupportActionBar(dataBinding.loginToolBar);
+
+        dataBinding.loginBtnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setTexts() {
