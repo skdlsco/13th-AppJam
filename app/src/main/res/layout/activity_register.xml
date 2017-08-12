@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="24dp"
+        android:background="@color/colorWhite"
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
@@ -16,29 +17,101 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/register_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="?attr/actionBarSize">
+
+                <TextView
+                    android:id="@+id/register_toolBar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/title_text_size" />
+            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/register_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="회원가입"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            <TextView
+                android:id="@+id/register_subTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TheQuiet이 제공하는 서비스를 이용할 수 있습니다."
+                android:textColor="@color/colorBlack"
+                android:textSize="9sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <EditText
+                android:id="@+id/register_edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/btn_stroke_black"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:textColor="@color/colorBlack"
+                android:textSize="9dp" />
+
+            <EditText
+                android:id="@+id/register_edit_id"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/btn_stroke_black"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:textColor="@color/colorBlack"
+                android:textSize="9dp" />
+
+            <EditText
+                android:id="@+id/register_edit_pw"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/btn_stroke_black"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:textColor="@color/colorBlack"
+                android:textSize="9dp" />
+
+            <EditText
+                android:id="@+id/register_edit_repw"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_stroke_black"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:textColor="@color/colorBlack"
+                android:textSize="9dp" />
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
         <Button
+            android:id="@+id/register_submit"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:layout_marginBottom="28dp"
@@ -46,6 +119,7 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:background="@drawable/btn_solid_black"
             android:text="회원가입 완료"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
     </LinearLayout>
 </layout>

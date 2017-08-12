@@ -1,129 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="24dp"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <android.support.design.widget.AppBarLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/main_toolBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-        </android.support.design.widget.AppBarLayout>
-
-        <fragment
-            android:id="@+id/main_map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingTop="13dp">
+            android:layout_height="?attr/actionBarSize">
 
             <TextView
-                android:id="@+id/main_text_locationName"
+                android:id="@+id/main_toolBar_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="11dp"
-                android:text="개포디지털혁신파크"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/app_name"
                 android:textColor="@color/colorBlack"
-                android:textSize="18sp" />
+                android:textSize="@dimen/title_text_size" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
-            <TextView
-                android:id="@+id/main_text_locationInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:text="서울시 용산구 청파로 45길 11"
-                android:textSize="11sp" />
+    <fragment
+        android:id="@+id/main_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorBlack" />
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="13dp">
+
+        <TextView
+            android:id="@+id/main_text_locationName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBlack" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin">
+
+        <ImageView
+            android:id="@+id/main_db_image"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/ic_volume" />
+
+        <TextView
+            android:id="@+id/main_db_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_main_normal" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="17dp"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin">
+            android:layout_marginRight="11dp"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/main_db_image"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginRight="11dp"
-                android:src="@drawable/ic_volume" />
-
-            <TextView
-                android:id="@+id/main_db_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="30db / 최근 3시간동안 평균"
-                android:textColor="@color/colorBlack"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="18dp"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin">
+                android:id="@+id/main_star_1"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginRight="5dp"/>
 
             <ImageView
-                android:id="@+id/main_rank_image"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/ic_main_normal" />
+                android:id="@+id/main_star_2"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginRight="5dp"/>
 
-            <RatingBar
-                android:layout_width="80dp"
-                android:layout_height="10dp"
-                android:layout_marginRight="11dp" />
+            <ImageView
+                android:id="@+id/main_star_3"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginRight="5dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="보통"
-                android:textColor="@color/colorBlack" />
+            <ImageView
+                android:id="@+id/main_star_4"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginRight="5dp"/>
+
+            <ImageView
+                android:id="@+id/main_star_5"
+                android:layout_width="12dp"
+                android:layout_height="12dp"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/main_text_update"
-            android:layout_width="match_parent"
+            android:id="@+id/main_rank_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:text="최근 업데이트 : 2017 / 08 / 12 09:00"
-            android:textColor="@color/colorBlack"
-            android:textSize="9dp" />
+            android:textColor="@color/colorBlack" />
     </LinearLayout>
-</layout>
+
+    <TextView
+        android:id="@+id/main_text_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:textColor="@color/colorBlack"
+        android:textSize="9dp" />
+</LinearLayout>

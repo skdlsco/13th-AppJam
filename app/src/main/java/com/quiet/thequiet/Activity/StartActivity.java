@@ -2,10 +2,13 @@ package com.quiet.thequiet.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.quiet.thequiet.Fonts;
 import com.quiet.thequiet.R;
@@ -26,7 +29,7 @@ public class StartActivity extends AppCompatActivity {
         fonts = new Fonts(this);
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_start);
 
-        setFonts();
+        setTexts();
 
         dataBinding.startBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +47,11 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
-    private void setFonts() {
+    private void setTexts() {
         dataBinding.startText1.setTypeface(fonts.CabinRegular);
         dataBinding.startText2.setTypeface(fonts.CabinRegular);
         dataBinding.startBtnLogin.setTypeface(fonts.NanumBarunGothic);
         dataBinding.startBtnRegister.setTypeface(fonts.NanumBarunGothic);
+
     }
 }
