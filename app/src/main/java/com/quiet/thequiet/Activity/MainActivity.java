@@ -33,6 +33,8 @@ import com.quiet.thequiet.R;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     Retrofit retrofit;
     APIRequest apiRequest;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,19 +130,106 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         mMap.setMinZoomPreference(10);
         setLocation();
+
+        mMap.setOnMarkerClickListener(onMarkerClickListener);
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getPlaces();
+            }
+        }, 0, 5000);
+    }
+
+    GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            for (int i = 0; i < markers.size(); i++) {
+                if (markers.get(i).getTag() == marker.getTag()) {
+
+                    places.get(i).getDecibel();
+                    int db = places.get(i).getDecibel();
+                    dbText.setText(places.get(i).getDecibel() + "db / 최근3시간동안평균");
+                    textUpdate.setText("최근 업데이트 : " + places.get(i).getLastupdate());
+                    locationName.setText(places.get(i).getPlacename());
+                    switch (db / 10) {
+                        case 0:
+                        case 1:
+                            rankText.setText("매우 종음");
+                            rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_verygood));
+                            star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            break;
+                        case 2:
+                        case 3:
+                            rankText.setText("좋음");
+                            rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_good));
+                            star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            break;
+                        case 4:
+                        case 5:
+                            rankText.setText("보통");
+                            rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_normal));
+                            star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            break;
+                        case 6:
+                        case 7:
+                            rankText.setText("나쁨");
+                            rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_bad));
+                            star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
+                            star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            break;
+                        default:
+                            rankText.setText("매우 나쁨");
+                            rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_verybad));
+                            star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
+                            break;
+                    }
+                }
+            }
+            return false;
+        }
+    };
+
+    void getPlaces() {
         apiRequest.getLocations().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 String json;
                 try {
+                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(Marker marker) {
+                            return false;
+                        }
+                    });
                     json = response.body().string();
                     Log.e("asdfasdf", json.toString());
                     places = gson.fromJson(json, new TypeToken<List<Place>>() {
                     }.getType());
-
+                    mMap.setOnMarkerClickListener(onMarkerClickListener);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                markers.clear();
                 for (Place place : places) {
                     markers.add(mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(place.getLatitude(), place.getLogitude()))
@@ -155,78 +245,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                for (int i = 0; i < markers.size(); i++) {
-                    if (markers.get(i).getTag() == marker.getTag()) {
-
-                        places.get(i).getDecibel();
-                        int db = places.get(i).getDecibel();
-                        dbText.setText(places.get(i).getDecibel() + "db / 최근3시간동안평균");
-                        textUpdate.setText("최근 업데이트 : " + places.get(i).getLastupdate());
-                        locationName.setText(places.get(i).getPlacename());
-                        switch (db / 10) {
-                            case 0:
-                            case 1:
-                                rankText.setText("매우 종음");
-                                rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_verygood));
-                                star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                break;
-                            case 2:
-                            case 3:
-                                rankText.setText("좋음");
-                                rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_good));
-                                star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                break;
-                            case 4:
-                            case 5:
-                                rankText.setText("보통");
-                                rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_normal));
-                                star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                break;
-                            case 6:
-                            case 7:
-                                rankText.setText("나쁨");
-                                rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_bad));
-                                star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_check));
-                                star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                break;
-                            default:
-                                rankText.setText("매우 나쁨");
-                                rankImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_verybad));
-                                star1.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                star2.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                star3.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                star4.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                star5.setImageDrawable(getResources().getDrawable(R.drawable.ic_main_star_uncheck));
-                                break;
-                        }
-                    }
-                }
-                return false;
-            }
-        });
     }
 
     @Override
     protected void onDestroy() {
         gpsInfo.stopUsingGPS();
+        timer.cancel();
         super.onDestroy();
     }
 
